@@ -46,7 +46,7 @@ class LogisticRegression:
             # Hint: Use np.random.choice to generate indices. Sampling with         #
             # replacement is faster than sampling without replacement.              #
             #########################################################################
-
+            rndIndx = np.random.choice()
 
             #########################################################################
             #                       END OF YOUR CODE                                #
