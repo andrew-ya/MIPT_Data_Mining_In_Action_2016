@@ -12,14 +12,14 @@ def create_config(path):
         try:
             config_obj = json.load(f)
         except ValueError:
-            print "Can't decode config json"
+            print("Can't decode config json")
             raise ValueError
 
     assert(type(config_obj) is dict)
     tasks = config_obj.get('task_identities')
     assert(type(tasks) is list)
     if tasks is None:
-        print 'There is no task_identities in config'
+        print('There is no task_identities in config')
         assert False
     config_obj['task_lengths'] = [len(task) + 5 for task in tasks]
     tasks = set(tasks)
@@ -29,31 +29,31 @@ def create_config(path):
     industry_weights = config_obj.get('industry_weights')
     assert(type(industry_weights) is dict)
     if industry_weights is None:
-        print 'There is no industry_weights in config'
+        print('There is no industry_weights in config')
         assert False
     for task, weight in industry_weights.iteritems():
         if task not in tasks:
-            print "industry_weights's key '{}' is not found in tasks".format(task.encode('utf-8'))
+            print("industry_weights's key '{}' is not found in tasks".format(task.encode('utf-8')))
             assert False
 
     sport_weights = config_obj.get('sport_weights')
     assert(type(sport_weights) is dict)
     if sport_weights is None:
-        print 'There is no sport_weights in config'
+        print('There is no sport_weights in config')
         assert False
     for task, weight in sport_weights.iteritems():
         if task not in tasks:
-            print "sport_weights's key '{}' is not found in tasks".format(task.encode('utf-8'))
+            print("sport_weights's key '{}' is not found in tasks".format(task.encode('utf-8')))
             assert False
 
     trends_weights = config_obj.get('trends_weights')
     assert(type(trends_weights) is dict)
     if trends_weights is None:
-        print 'There is no trends_weights in config'
+        print('There is no trends_weights in config')
         assert False
     for task, weight in trends_weights.iteritems():
         if task not in tasks:
-            print "trends_weights's key '{}' is not found in tasks".format(task.encode('utf-8'))
+            print("trends_weights's key '{}' is not found in tasks".format(task.encode('utf-8')))
             assert False
     return config_obj
 
@@ -65,7 +65,7 @@ def create_students(path):
             try:
                 obj = json.load(f)
             except ValueError:
-                print "Can't load " + path + '/' + filename
+                print("Can't load " + path + '/' + filename)
                 raise ValueError
             for student in obj:
                 key = student.get('identity')
@@ -86,7 +86,7 @@ def validate_students(students, config_obj):
         assert(type(student) is dict)
         identity = student.get('identity')
         if identity is None:
-            print 'There is no identity of some student'
+            print('There is no identity of some student')
             return False
 
         student['identity_tuple'] = tuple(sorted(filter(lambda x: len(x) > 0, identity.split(' '))))
@@ -95,7 +95,7 @@ def validate_students(students, config_obj):
         # validate student's tasks
         for task, score in student_tasks.iteritems():
             if task not in tasks:
-                print "Student {} has unknown task - '{}'".format(identity.encode('utf-8'), task.encode('utf-8'))
+                print("Student {} has unknown task - '{}'".format(identity.encode('utf-8'), task.encode('utf-8')))
                 return False
 
     return True
