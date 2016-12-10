@@ -41,7 +41,7 @@ if __name__ == '__main__':
             'identity': args.all_students[student_2_tuple(obj[0].decode(chardet.detect(obj[0])['encoding']))],
             'tasks': {
                 args.input.columns[i]: obj[i]
-                for i in xrange(1, len(obj))
+                for i in range(1, len(obj))
             }
         }
         for _, obj in args.input.iterrows()
